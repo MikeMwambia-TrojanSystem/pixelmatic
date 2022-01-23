@@ -1,180 +1,25 @@
-'use strict'
-/*
-var row= 5;
-var column= 5;
-var f = new Array();
-let i = 0;
-let j = 0;
-for (i=0;i<row;i++) {
- f[i]=new Array();
- for (j=0;j<column;j++) {
-     //Rows
-     let dataObj = {};
-     dataObj.rowIndex = i
-     dataObj.columnIndex = j
-  if(i ===0){
-     dataObj.number = 0
-     f[i][j]=dataObj;
-  }
-  if(i ===1){
-    dataObj.number = 1
-    f[i][j]=dataObj;
-  }
-  if(i ===2){
-    dataObj.number = 2
-    f[i][j]=dataObj;
-  }
-  if(i ===3){
-    dataObj.number = 3
-    f[i][j]=dataObj;
-  }
-  if(i ===4){
-    dataObj.number = 4
-    f[i][j]=dataObj;
-  }
- }
-}
-
-console.log(f)
-
-*/
-
-
-function draw(cb){
-    let table = document.createElement('table');
-    table.id = 'gridTable';
-    let thead = document.createElement('thead');
-    let tbody = document.createElement('tbody');
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    document.getElementById('dynamic').appendChild(table);
-
-    // Creating and adding data to first row of the table
-let row_1 = document.createElement('tr');
-let heading_1 = document.createElement('th');
-heading_1.className = 'container'
-heading_1.innerHTML = "Sr. No.";
-let heading_2 = document.createElement('th');
-heading_2.className = 'container'
-heading_2.innerHTML = "Name";
-let heading_3 = document.createElement('th');
-heading_3.className = 'container'
-heading_3.innerHTML = "Company";
-
-row_1.appendChild(heading_1);
-row_1.appendChild(heading_2);
-row_1.appendChild(heading_3);
-thead.appendChild(row_1);
-
-
-// Creating and adding data to second row of the table
-let row_2 = document.createElement('tr');
-row_2.className = 'flex-ul';
-let row_2_data_1 = document.createElement('td');
-row_2.className = 'flex-item';
-row_2_data_1.innerHTML = "1.";
-let row_2_data_2 = document.createElement('td');
-row_2.className = 'flex-item';
-row_2_data_2.innerHTML = "James Clerk";
-let row_2_data_3 = document.createElement('td');
-row_2.className = 'flex-item';
-row_2_data_3.innerHTML = "Netflix";
-
-row_2.appendChild(row_2_data_1);
-row_2.appendChild(row_2_data_2);
-row_2.appendChild(row_2_data_3);
-tbody.appendChild(row_2);
-
-
-// Creating and adding data to third row of the table
-let row_3 = document.createElement('tr');
-let row_3_data_1 = document.createElement('td');
-row_3_data_1.innerHTML = "2."; 
-row_3_data_1.id = 'AmId'
-let row_3_data_2 = document.createElement('td');
-row_3_data_2.innerHTML = "Adam White";
-let row_3_data_3 = document.createElement('td');
-row_3_data_3.innerHTML = "Microsoft";
-
-row_3.appendChild(row_3_data_1);
-row_3.appendChild(row_3_data_2);
-row_3.appendChild(row_3_data_3);
-tbody.appendChild(row_3);
-}
-
-//draw();
-/*
-
-//Click event one on all table
-window.addEventListener('load',(event)=>{
-    var tableg = document.getElementById("gridTable"); 
-    tableg.onclick = function(event){
-        let insideTd = (event.target.outerHTML).indexOf('td');
-        if(insideTd>0){
-            console.log(event.target.innerHTML);
-            console.log('We are inside TD');
-            //Increase cell value by +1
-        }else{
-            console.log('We are outside TD');
-        }
-    }
-})
-*/
-/*
-Check if any rows and columns abide to fibonacci rule
-NB:-
-*/
-/*
-function checkFib(arr,n){
-
-    // Sort array
-    arr.sort((a, b) => a - b);
-
-    // After sorting, check if every
-    // element is equal to the sum
-    // of previous 2 elements
-    for (i = 2; i < n; i++) {
-        if ((arr[i - 1] + arr[i - 2]) != arr[i])
-            return false;
-    }
-
-    return true;
-}
-
-var arr = [ 8, 63, 5, 13 ];
-
-var n = arr.length;
-
-console.log(checkFib(arr,n));
-
-(function(){
-    console.log('I am self invokng')
-
-    window.addEventListener('load',(event)=>{
-        var tableg = document.getElementById("gridTable"); 
-        tableg.onclick = function(event){
-            let insideTd = (event.target.outerHTML).indexOf('td');
-            if(insideTd>0){
-                console.log(event.target.innerHTML);
-                console.log('We are inside TD');
-                //Increase cell value by +1
-            }else{
-                console.log('We are outside TD');
-            }
-        }
-    })
-
-}
-)()
-*/
 (()=>{
+
+    'use strict'
+
     let row = 5
     let column = 5
+    let clickedId = null;
+
     //rowdata
     let rowData = {}
+    rowData.fibonaciArr = []
+    let rowElFibonaci = [];
+
     //columndata
     let columndata = {}
+    columndata.fibonaciArr = []
+    let colElFibonaci = [];
 
+    /*
+    @dev
+    Self invoking function to create the data obj
+    */
     let data = (function generateData(){
         let f = new Array()
         let i = 0;
@@ -222,6 +67,12 @@ console.log(checkFib(arr,n));
     })()
 
     let pageLogic = new Object;
+
+    /*
+    @dev
+    Draws a dynamic table
+    */
+
     pageLogic.drawTable =  (data)=>{
         let table = document.createElement('table');
         table.id = 'gridTable';
@@ -250,14 +101,23 @@ console.log(checkFib(arr,n));
         }
     }
 
+    /*
+    @dev
+    Adds onclick event ot the whole table unlike to individual cells can improve performance on large datasets
+    */
+
     pageLogic.addClickEvent = ()=>{
         window.addEventListener('load',(event)=>{
             var tableg = document.getElementById("gridTable"); 
             tableg.onclick = function(event){
                 let insideTd = (event.target.outerHTML).indexOf('td');
                 if(insideTd>0){
-                    //Increase cell value by +1
-                    pageLogic.filterTableData(event.target.id);
+                    /*
+                    @dev
+                    Gets the value of cells in a specific row
+                    */
+                    clickedId = event.target.id;
+                    pageLogic.getRowData();
                 }else{
                     console.log('We are outside TD');
                 }
@@ -265,39 +125,10 @@ console.log(checkFib(arr,n));
         })
     }
 
-    pageLogic.filterTableData = (id)=>{
-        if(undefined != id){
-            let rowIndex = id.split('***')[0]
-            let columnIndex = id.split('***')[1]
-            let tableTdElements = document.querySelectorAll('td');
-            let relevantNodes = [];
-            tableTdElements.forEach(td=>{
-                td.className = 'flex-item'
-                let nodeId = td.id
-                let tdrow = nodeId.split('***')[0]
-                let tdcolumn = nodeId.split('***')[1]
-                if(tdrow === rowIndex || tdcolumn === columnIndex){
-                    relevantNodes.push(td)
-                }
-            })
-            pageLogic.updateCells(relevantNodes);
-        }
-    }
-
-    pageLogic.updateCells = (nodes)=>{
-        nodes.forEach(node=>{
-            let rowIndex = node.id.split('***')[0]
-            let columnIndex = node.id.split('***')[1]
-            //Update html
-            let cellValue = parseInt(node.innerHTML) + 1;
-            node.innerHTML = cellValue;
-            node.className = 'updated-cell';
-            //Update data number
-            data[rowIndex][columnIndex].number = cellValue;
-        })
-        pageLogic.getRowData();
-    }
-
+    /*
+    @dev
+    Gets the data in all rows
+    */
     pageLogic.getRowData= ()=>{
         data.forEach((item,index)=>{
             let rowContent = [];
@@ -308,11 +139,15 @@ console.log(checkFib(arr,n));
                 rowContent.push(content);
             })
             rowData[index] = rowContent;
-            rowData[index].fibonaci = false;
         })
         pageLogic.getColumnData()
     }
 
+
+    /*
+    @dev
+    Gets the column data acros the table
+    */
     pageLogic.getColumnData = ()=>{
         //All table cells
         let allTableCells = document.querySelectorAll('td');
@@ -334,45 +169,431 @@ console.log(checkFib(arr,n));
             let cellCollumn = item[1].id.split('***')[1]
             if(cellCollumn == columnArray[i]){
                 let content = {};
-                content.columnValue = item[1].innerText
+                content.columnValue = parseInt(item[1].innerText)
                 content.elementId = item[1].id;
                 columns.push(content);
             }
         })
         columndata[i] = columns;
-        columndata[i].fibonaci = false;
         }
-        pageLogic.setFibonacci()
+        pageLogic.checkRowsForFibonaci();
     }
 
-    pageLogic.setFibonacci = ()=>{
-        if(Object.keys(rowData) != 0 && Object.keys(columndata)!= 0){
-            let rowDataInfo = rowData;
-            console.log(rowDataInfo[0])
-            let columnDataInfo = columndata;
-            console.log(columnDataInfo[0]);
+
+    /*
+    @dev
+    Checks the rows in the table whether the have fabinaci sequence
+    */
+
+    pageLogic.checkRowsForFibonaci = ()=>{
+        if(Object.keys(rowData) != 0){
+
+            let rowContentArr = Object.entries(rowData);
+
+            /*let rowContentArr = [
+                [
+                  "0",
+                  [
+                    {
+                      "rowValue": 8,
+                      "elementId": "0***0"
+                    },
+                    {
+                      "rowValue": 21,
+                      "elementId": "0***1"
+                    },
+                    {
+                      "rowValue": 5,
+                      "elementId": "0***2"
+                    },
+                    {
+                      "rowValue": 13,
+                      "elementId": "0***3"
+                    },
+                    {
+                      "rowValue": 3,
+                      "elementId": "0***4"
+                    }
+                  ]
+                ],
+                [
+                  "1",
+                  [
+                    {
+                      "rowValue": 2,
+                      "elementId": "1***0"
+                    },
+                    {
+                      "rowValue": 1,
+                      "elementId": "1***1"
+                    },
+                    {
+                      "rowValue": 1,
+                      "elementId": "1***2"
+                    },
+                    {
+                      "rowValue": 1,
+                      "elementId": "1***3"
+                    },
+                    {
+                      "rowValue": 1,
+                      "elementId": "1***4"
+                    }
+                  ]
+                ],
+                [
+                  "2",
+                  [
+                    {
+                      "rowValue": 3,
+                      "elementId": "2***0"
+                    },
+                    {
+                      "rowValue": 2,
+                      "elementId": "2***1"
+                    },
+                    {
+                      "rowValue": 2,
+                      "elementId": "2***2"
+                    },
+                    {
+                      "rowValue": 2,
+                      "elementId": "2***3"
+                    },
+                    {
+                      "rowValue": 2,
+                      "elementId": "2***4"
+                    }
+                  ]
+                ],
+                [
+                  "3",
+                  [
+                    {
+                      "rowValue": 4,
+                      "elementId": "3***0"
+                    },
+                    {
+                      "rowValue": 3,
+                      "elementId": "3***1"
+                    },
+                    {
+                      "rowValue": 3,
+                      "elementId": "3***2"
+                    },
+                    {
+                      "rowValue": 3,
+                      "elementId": "3***3"
+                    },
+                    {
+                      "rowValue": 3,
+                      "elementId": "3***4"
+                    }
+                  ]
+                ],
+                [
+                  "4",
+                  [
+                    {
+                      "rowValue": 5,
+                      "elementId": "4***0"
+                    },
+                    {
+                      "rowValue": 4,
+                      "elementId": "4***1"
+                    },
+                    {
+                      "rowValue": 4,
+                      "elementId": "4***2"
+                    },
+                    {
+                      "rowValue": 4,
+                      "elementId": "4***3"
+                    },
+                    {
+                      "rowValue": 4,
+                      "elementId": "4***4"
+                    }
+                  ]
+                ]
+              ]*/
+
+            rowContentArr.map((item)=>{
+                let ArrayD = Array.from(item[1],value => {
+                    return value.rowValue
+                })
+                let ArrayDLength = ArrayD.length;
+                if(ArrayDLength>0){
+                    let status = confirmFibonaciS(ArrayD,ArrayDLength);
+                    if(status === true){
+                        rowData.fibonaciArr.push(item[1]);
+                    }
+                }
+            })
+
+                    
+            //Call next function
+            pageLogic.checkColumnsForFibonaci()
+
+                 //Fibonaci Array Element IDs
+            if(undefined != rowData.fibonaciArr[0]){
+                let elementIDs = Array.from(rowData.fibonaciArr[0],value =>{
+                        return value.elementId;
+                })
+                if(elementIDs.length>0){
+                    pageLogic.filterTableData(elementIDs,'Fibonaci');
+                } 
+                console.log(elementIDs)
+            }
+
         }else{
             alert('Reload page and try again')
         }
     }
 
-    pageLogic.drawTable(data);
-})()
 
 
-/*
- //Generate Columns and check
+    /*
+    @dev
+    Checks the columns in the table whether they have a fabinaci sequence
+    */
 
+    pageLogic.checkColumnsForFibonaci = ()=>{
+        if(Object.keys(columndata) != 0){
+            
+            //let columnContent = Object.entries(columndata);
 
-        function checkFib(arr,n){
-            // Sort array
-            arr.sort((a, b) => a - b);
-            // After sorting, check if every element is equal to the sum of previous 2 elements
-            for (i = 2; i < n; i++) {
-                if ((arr[i - 1] + arr[i - 2]) != arr[i])
-                    return false;
+            let columnContent = [
+                [
+                  "0",
+                  [
+                    {
+                      "columnValue": 8,
+                      "elementId": "0***0"
+                    },
+                    {
+                      "columnValue": 21,
+                      "elementId": "1***0"
+                    },
+                    {
+                      "columnValue": 5,
+                      "elementId": "2***0"
+                    },
+                    {
+                      "columnValue": 13,
+                      "elementId": "3***0"
+                    },
+                    {
+                      "columnValue": 3,
+                      "elementId": "4***0"
+                    }
+                  ]
+                ],
+                [
+                  "1",
+                  [
+                    {
+                      "columnValue": 1,
+                      "elementId": "0***1"
+                    },
+                    {
+                      "columnValue": 1,
+                      "elementId": "1***1"
+                    },
+                    {
+                      "columnValue": 2,
+                      "elementId": "2***1"
+                    },
+                    {
+                      "columnValue": 3,
+                      "elementId": "3***1"
+                    },
+                    {
+                      "columnValue": 4,
+                      "elementId": "4***1"
+                    }
+                  ]
+                ],
+                [
+                  "2",
+                  [
+                    {
+                      "columnValue": 1,
+                      "elementId": "0***2"
+                    },
+                    {
+                      "columnValue": 1,
+                      "elementId": "1***2"
+                    },
+                    {
+                      "columnValue": 2,
+                      "elementId": "2***2"
+                    },
+                    {
+                      "columnValue": 3,
+                      "elementId": "3***2"
+                    },
+                    {
+                      "columnValue": 4,
+                      "elementId": "4***2"
+                    }
+                  ]
+                ],
+                [
+                  "3",
+                  [
+                    {
+                      "columnValue": 1,
+                      "elementId": "0***3"
+                    },
+                    {
+                      "columnValue": 1,
+                      "elementId": "1***3"
+                    },
+                    {
+                      "columnValue": 2,
+                      "elementId": "2***3"
+                    },
+                    {
+                      "columnValue": 3,
+                      "elementId": "3***3"
+                    },
+                    {
+                      "columnValue": 4,
+                      "elementId": "4***3"
+                    }
+                  ]
+                ],
+                [
+                  "4",
+                  [
+                    {
+                      "columnValue": 1,
+                      "elementId": "0***4"
+                    },
+                    {
+                      "columnValue": 1,
+                      "elementId": "1***4"
+                    },
+                    {
+                      "columnValue": 2,
+                      "elementId": "2***4"
+                    },
+                    {
+                      "columnValue": 3,
+                      "elementId": "3***4"
+                    },
+                    {
+                      "columnValue": 4,
+                      "elementId": "4***4"
+                    }
+                  ]
+                ],
+                [
+                  "fibonaciArr",
+                  []
+                ]
+              ]
+
+            columnContent.map((item)=>{
+                let ArrayD = Array.from(item[1],value => {
+                    return value.columnValue
+                })
+                let ArrayDLength = ArrayD.length;
+                if(ArrayDLength>0){
+                    let status = confirmFibonaciS(ArrayD,ArrayDLength);
+                    if(status === true){
+                        columndata.fibonaciArr.push(item[1]);
+                    }
+                }
+            })
+
+            //Fibonaci Array Element IDs
+        if(undefined != columndata.fibonaciArr[0]){
+            let elementIDs = Array.from(columndata.fibonaciArr[0],value =>{
+                    return value.elementId;
+            })
+            if(elementIDs.length>0){
+                pageLogic.filterTableData(elementIDs,'Fibonaci');
+            } 
+        }else{
+            if(undefined === rowData.fibonaciArr[0]){
+                pageLogic.filterTableData(clickedId,'Addition');
             }
-            return true;
         }
-        
-*/
+
+        }else{
+            alert('Reload page and try again')
+        }
+    }
+
+
+
+    pageLogic.filterTableData = (id,flag)=>{
+        //Updates the row / column that has fibonaci sequence and clears the cells turns green temporarily
+        //Adds + 1 on a row and a column  changes colour to yellow for few seconds
+        let tableTdElements = document.querySelectorAll('td');
+        if(flag ==='Fibonaci'){
+            id.forEach(element=>{
+                let rowIndex = element.split('***')[0]
+                let columnIndex = element.split('***')[1]
+                let node = document.getElementById(element)
+                //Update html
+                let cellValue = parseInt(0);
+                node.innerHTML = cellValue;
+                node.className = 'fibonaci-cell';
+                //Update data number
+                data[rowIndex][columnIndex].number = cellValue;
+            })
+        }else if(flag ==='Addition'){
+            if(undefined != id){
+                let rowIndex = id.split('***')[0]
+                let columnIndex = id.split('***')[1]
+                let relevantNodes = [];
+                tableTdElements.forEach(td=>{
+                    td.className = 'flex-item'
+                    let nodeId = td.id
+                    let tdrow = nodeId.split('***')[0]
+                    let tdcolumn = nodeId.split('***')[1]
+                    if(tdrow === rowIndex || tdcolumn === columnIndex){
+                        relevantNodes.push(td)
+                    }
+                })
+                pageLogic.updateCells(relevantNodes);
+            }else{
+                alert('Element ID undefined')
+            }
+        }else {
+            tableTdElements.forEach(td=>{
+                td.className = 'flex-item'
+            })
+        }
+    }
+
+    pageLogic.updateCells = (nodes)=>{
+        nodes.forEach(node=>{
+            let rowIndex = node.id.split('***')[0]
+            let columnIndex = node.id.split('***')[1]
+            //Update html
+            let cellValue = parseInt(node.innerHTML) + 1;
+            node.innerHTML = cellValue;
+            node.className = 'updated-cell';
+            //Update data number
+            data[rowIndex][columnIndex].number = cellValue;
+        })
+    }
+
+    function confirmFibonaciS(arr,n){
+        // Sort array
+        arr.sort((a, b) => a - b);
+        // After sorting, check if every element is equal to the sum of previous 2 elements
+        for (let i = 2; i < n; i++) {
+            if ((arr[i - 1] + arr[i - 2]) != arr[i])
+                return false;
+        }
+        return true;
+    }
+
+    pageLogic.drawTable(data);
+
+})()
