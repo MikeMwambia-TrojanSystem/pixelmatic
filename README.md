@@ -3,7 +3,7 @@ This is implemented in ES6 , HTML and CSS.
 
 It follows and accomplishes all the requirements as requested in the pdf shared.
 
-To initialize just navigate into the file and double click on the html.
+To initialize just navigate into the folder and double click on the html.
 
 A JS fiddle of the same can be found here 
 
