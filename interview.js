@@ -116,7 +116,6 @@
             rowData[index] = rowContent;
         })
         pageLogic.getColumnData()
-      
     }
 
 
@@ -319,9 +318,9 @@
                 return false;
         }
 
-        //if(Array[arr] == undefined){
-         //   return false;
-        //}
+        if(Array[arr] == undefined){
+           return false;
+        }
         
         return true;
     }
