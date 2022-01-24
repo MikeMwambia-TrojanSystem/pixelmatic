@@ -31,7 +31,11 @@
                 let dataObj = {};
                 dataObj.rowIndex = i
                 dataObj.columnIndex = j
-                dataObj.number = 0
+                if(i===0)dataObj.number = 0
+                if(i===1)dataObj.number = 1
+                if(i===2)dataObj.number = 2
+                if(i===3)dataObj.number = 3
+                if(i===4)dataObj.number = 4
                 f[i][j]=dataObj;
                 }
             }
@@ -316,10 +320,6 @@
         for (let i = 2; i < n; i++) {
             if ((arr[i - 1] + arr[i - 2]) != arr[i])
                 return false;
-        }
-
-        if(Array[arr] == undefined){
-           return false;
         }
         
         return true;
