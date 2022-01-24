@@ -9,12 +9,12 @@
     //rowdata
     let rowData = {}
     rowData.fibonaciArr = []
-    let rowElFibonaci = [];
+    
 
     //columndata
     let columndata = {}
     columndata.fibonaciArr = []
-    let colElFibonaci = [];
+   
 
     /*
     @dev
@@ -31,33 +31,8 @@
                 let dataObj = {};
                 dataObj.rowIndex = i
                 dataObj.columnIndex = j
-
-                    //Rows
-                 if(i ===0){
-                    dataObj.number = 0
-                    f[i][j]=dataObj;
-                 }
-
-                 if(i ===1){
-                   dataObj.number = 1
-                   f[i][j]=dataObj;
-                 }
-
-                 if(i ===2){
-                   dataObj.number = 2
-                   f[i][j]=dataObj;
-                 }
-
-                 if(i ===3){
-                   dataObj.number = 3
-                   f[i][j]=dataObj;
-                 }
-
-                 if(i ===4){
-                   dataObj.number = 4
-                   f[i][j]=dataObj;
-                 }
-
+                dataObj.number = 0
+                f[i][j]=dataObj;
                 }
             }
             return f;
@@ -141,6 +116,7 @@
             rowData[index] = rowContent;
         })
         pageLogic.getColumnData()
+      
     }
 
 
@@ -190,133 +166,6 @@
 
             let rowContentArr = Object.entries(rowData);
 
-            /*let rowContentArr = [
-                [
-                  "0",
-                  [
-                    {
-                      "rowValue": 8,
-                      "elementId": "0***0"
-                    },
-                    {
-                      "rowValue": 21,
-                      "elementId": "0***1"
-                    },
-                    {
-                      "rowValue": 5,
-                      "elementId": "0***2"
-                    },
-                    {
-                      "rowValue": 13,
-                      "elementId": "0***3"
-                    },
-                    {
-                      "rowValue": 3,
-                      "elementId": "0***4"
-                    }
-                  ]
-                ],
-                [
-                  "1",
-                  [
-                    {
-                      "rowValue": 2,
-                      "elementId": "1***0"
-                    },
-                    {
-                      "rowValue": 1,
-                      "elementId": "1***1"
-                    },
-                    {
-                      "rowValue": 1,
-                      "elementId": "1***2"
-                    },
-                    {
-                      "rowValue": 1,
-                      "elementId": "1***3"
-                    },
-                    {
-                      "rowValue": 1,
-                      "elementId": "1***4"
-                    }
-                  ]
-                ],
-                [
-                  "2",
-                  [
-                    {
-                      "rowValue": 3,
-                      "elementId": "2***0"
-                    },
-                    {
-                      "rowValue": 2,
-                      "elementId": "2***1"
-                    },
-                    {
-                      "rowValue": 2,
-                      "elementId": "2***2"
-                    },
-                    {
-                      "rowValue": 2,
-                      "elementId": "2***3"
-                    },
-                    {
-                      "rowValue": 2,
-                      "elementId": "2***4"
-                    }
-                  ]
-                ],
-                [
-                  "3",
-                  [
-                    {
-                      "rowValue": 4,
-                      "elementId": "3***0"
-                    },
-                    {
-                      "rowValue": 3,
-                      "elementId": "3***1"
-                    },
-                    {
-                      "rowValue": 3,
-                      "elementId": "3***2"
-                    },
-                    {
-                      "rowValue": 3,
-                      "elementId": "3***3"
-                    },
-                    {
-                      "rowValue": 3,
-                      "elementId": "3***4"
-                    }
-                  ]
-                ],
-                [
-                  "4",
-                  [
-                    {
-                      "rowValue": 5,
-                      "elementId": "4***0"
-                    },
-                    {
-                      "rowValue": 4,
-                      "elementId": "4***1"
-                    },
-                    {
-                      "rowValue": 4,
-                      "elementId": "4***2"
-                    },
-                    {
-                      "rowValue": 4,
-                      "elementId": "4***3"
-                    },
-                    {
-                      "rowValue": 4,
-                      "elementId": "4***4"
-                    }
-                  ]
-                ]
-              ]*/
 
             rowContentArr.map((item)=>{
                 let ArrayD = Array.from(item[1],value => {
@@ -331,10 +180,7 @@
                 }
             })
 
-                    
-            //Call next function
-            pageLogic.checkColumnsForFibonaci()
-
+       
                  //Fibonaci Array Element IDs
             if(undefined != rowData.fibonaciArr[0]){
                 let elementIDs = Array.from(rowData.fibonaciArr[0],value =>{
@@ -343,8 +189,12 @@
                 if(elementIDs.length>0){
                     pageLogic.filterTableData(elementIDs,'Fibonaci');
                 } 
-                console.log(elementIDs)
+               
             }
+                         
+            //Call next function
+            pageLogic.checkColumnsForFibonaci()
+
 
         }else{
             alert('Reload page and try again')
@@ -361,139 +211,8 @@
     pageLogic.checkColumnsForFibonaci = ()=>{
         if(Object.keys(columndata) != 0){
             
-            //let columnContent = Object.entries(columndata);
+            let columnContent = Object.entries(columndata);
 
-            let columnContent = [
-                [
-                  "0",
-                  [
-                    {
-                      "columnValue": 8,
-                      "elementId": "0***0"
-                    },
-                    {
-                      "columnValue": 21,
-                      "elementId": "1***0"
-                    },
-                    {
-                      "columnValue": 5,
-                      "elementId": "2***0"
-                    },
-                    {
-                      "columnValue": 13,
-                      "elementId": "3***0"
-                    },
-                    {
-                      "columnValue": 3,
-                      "elementId": "4***0"
-                    }
-                  ]
-                ],
-                [
-                  "1",
-                  [
-                    {
-                      "columnValue": 1,
-                      "elementId": "0***1"
-                    },
-                    {
-                      "columnValue": 1,
-                      "elementId": "1***1"
-                    },
-                    {
-                      "columnValue": 2,
-                      "elementId": "2***1"
-                    },
-                    {
-                      "columnValue": 3,
-                      "elementId": "3***1"
-                    },
-                    {
-                      "columnValue": 4,
-                      "elementId": "4***1"
-                    }
-                  ]
-                ],
-                [
-                  "2",
-                  [
-                    {
-                      "columnValue": 1,
-                      "elementId": "0***2"
-                    },
-                    {
-                      "columnValue": 1,
-                      "elementId": "1***2"
-                    },
-                    {
-                      "columnValue": 2,
-                      "elementId": "2***2"
-                    },
-                    {
-                      "columnValue": 3,
-                      "elementId": "3***2"
-                    },
-                    {
-                      "columnValue": 4,
-                      "elementId": "4***2"
-                    }
-                  ]
-                ],
-                [
-                  "3",
-                  [
-                    {
-                      "columnValue": 1,
-                      "elementId": "0***3"
-                    },
-                    {
-                      "columnValue": 1,
-                      "elementId": "1***3"
-                    },
-                    {
-                      "columnValue": 2,
-                      "elementId": "2***3"
-                    },
-                    {
-                      "columnValue": 3,
-                      "elementId": "3***3"
-                    },
-                    {
-                      "columnValue": 4,
-                      "elementId": "4***3"
-                    }
-                  ]
-                ],
-                [
-                  "4",
-                  [
-                    {
-                      "columnValue": 1,
-                      "elementId": "0***4"
-                    },
-                    {
-                      "columnValue": 1,
-                      "elementId": "1***4"
-                    },
-                    {
-                      "columnValue": 2,
-                      "elementId": "2***4"
-                    },
-                    {
-                      "columnValue": 3,
-                      "elementId": "3***4"
-                    },
-                    {
-                      "columnValue": 4,
-                      "elementId": "4***4"
-                    }
-                  ]
-                ],
-                [
-                  "fibonaciArr",
-                  []
-                ]
-              ]
 
             columnContent.map((item)=>{
                 let ArrayD = Array.from(item[1],value => {
@@ -528,10 +247,12 @@
     }
 
 
+    /*
+    @dev
+    Updates the UI and related front parameters
+    */
 
     pageLogic.filterTableData = (id,flag)=>{
-        //Updates the row / column that has fibonaci sequence and clears the cells turns green temporarily
-        //Adds + 1 on a row and a column  changes colour to yellow for few seconds
         let tableTdElements = document.querySelectorAll('td');
         if(flag ==='Fibonaci'){
             id.forEach(element=>{
@@ -563,11 +284,12 @@
             }else{
                 alert('Element ID undefined')
             }
-        }else {
+        }
+        setTimeout(function(){
             tableTdElements.forEach(td=>{
                 td.className = 'flex-item'
             })
-        }
+        },1000)
     }
 
     pageLogic.updateCells = (nodes)=>{
@@ -583,7 +305,12 @@
         })
     }
 
+    /*
+    @dev
+    Takes array and length of array then determines whether it's a fibonaci sequence
+    */
     function confirmFibonaciS(arr,n){
+        if(undefined != arr){
         // Sort array
         arr.sort((a, b) => a - b);
         // After sorting, check if every element is equal to the sum of previous 2 elements
@@ -591,9 +318,16 @@
             if ((arr[i - 1] + arr[i - 2]) != arr[i])
                 return false;
         }
+
+        //if(Array[arr] == undefined){
+         //   return false;
+        //}
+        
         return true;
     }
+    }
 
+    //Initiater function
     pageLogic.drawTable(data);
 
 })()
