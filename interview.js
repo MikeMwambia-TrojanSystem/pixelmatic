@@ -8,14 +8,10 @@
 
     //rowdata
     let rowData = {}
-    rowData.fibonaciArr = []
-    
 
     //columndata
     let columndata = {}
-    columndata.fibonaciArr = []
    
-
     /*
     @dev
     Self invoking function to create the data obj
@@ -168,7 +164,7 @@
         if(Object.keys(rowData) != 0){
 
             let rowContentArr = Object.entries(rowData);
-
+            let elementIDs = null;
 
             rowContentArr.map((item)=>{
                 let ArrayD = Array.from(item[1],value => {
@@ -178,22 +174,20 @@
                 if(ArrayDLength>0){
                     let status = confirmFibonaciS(ArrayD,ArrayDLength);
                     if(status === true){
-                        rowData.fibonaciArr.push(item[1]);
+                        elementIDs = Array.from(item[1],value =>{
+                                return value.elementId;
+                        })
                     }
                 }
             })
 
        
-                 //Fibonaci Array Element IDs
-            if(undefined != rowData.fibonaciArr[0]){
-                let elementIDs = Array.from(rowData.fibonaciArr[0],value =>{
-                        return value.elementId;
-                })
-                if(elementIDs.length>0){
-                    pageLogic.filterTableData(elementIDs,'Fibonaci');
-                } 
-               
+                //Fibonaci Array Element IDs
+            if(null != elementIDs && elementIDs.length>0){
+                pageLogic.filterTableData(elementIDs,'Fibonaci');
             }
+               
+            
                          
             //Call next function
             pageLogic.checkColumnsForFibonaci()
@@ -215,6 +209,7 @@
         if(Object.keys(columndata) != 0){
             
             let columnContent = Object.entries(columndata);
+            let elementIDs = null;
 
 
             columnContent.map((item)=>{
@@ -225,25 +220,20 @@
                 if(ArrayDLength>0){
                     let status = confirmFibonaciS(ArrayD,ArrayDLength);
                     if(status === true){
-                        columndata.fibonaciArr.push(item[1]);
+                    elementIDs = Array.from(item[1],value =>{
+                            return value.elementId;
+                    })
                     }
                 }
             })
 
-            //Fibonaci Array Element IDs
-        if(undefined != columndata.fibonaciArr[0]){
-            let elementIDs = Array.from(columndata.fibonaciArr[0],value =>{
-                    return value.elementId;
-            })
-            if(elementIDs.length>0){
-                pageLogic.filterTableData(elementIDs,'Fibonaci');
-            } 
-        }else{
-            if(undefined === rowData.fibonaciArr[0]){
-                pageLogic.filterTableData(clickedId,'Addition');
-            }
-        }
 
+            if(null != elementIDs && elementIDs.length>0){
+                pageLogic.filterTableData(elementIDs,'Fibonaci');
+            }
+            
+            pageLogic.filterTableData(clickedId,'Addition');
+            
         }else{
             alert('Reload page and try again')
         }
@@ -275,7 +265,6 @@
                 let columnIndex = id.split('***')[1]
                 let relevantNodes = [];
                 tableTdElements.forEach(td=>{
-                    td.className = 'flex-item'
                     let nodeId = td.id
                     let tdrow = nodeId.split('***')[0]
                     let tdcolumn = nodeId.split('***')[1]
@@ -292,7 +281,7 @@
             tableTdElements.forEach(td=>{
                 td.className = 'flex-item'
             })
-        },1000)
+        },2000)
     }
 
     pageLogic.updateCells = (nodes)=>{
